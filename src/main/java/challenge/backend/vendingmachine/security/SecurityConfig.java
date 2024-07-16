@@ -27,7 +27,7 @@ public class SecurityConfig {
         http
                 .csrf().disable()
                 .authorizeHttpRequests()
-                .requestMatchers("/users/sign-up").permitAll()
+                .requestMatchers("/users/**").permitAll()
                 .requestMatchers("/products/**").hasAuthority("SELLER")
                 .requestMatchers("/deposit/**", "/buy/**", "/reset/**").hasAuthority("BUYER")
                 .anyRequest().authenticated()

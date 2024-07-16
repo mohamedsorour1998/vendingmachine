@@ -8,13 +8,13 @@ import challenge.backend.vendingmachine.model.User;
 public interface UserService {
     List<User> getAllUsers();
 
-    Optional<User> getUserById(Long id);
+    Optional<User> getUserById(String id);
 
     User createUser(User user);
 
     User updateUser(User user);
 
-    void deleteUser(Long id);
+    void deleteUser(String id);
 
     User findByUsername(String username);
 }

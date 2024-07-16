@@ -26,7 +26,7 @@ public class BuyController {
     private ProductService productService;
 
     @PostMapping
-    public Map<String, Object> buy(@RequestParam Long productId, @RequestParam int amount, Principal principal) {
+    public Map<String, Object> buy(@RequestParam String productId, @RequestParam int amount, Principal principal) {
         Map<String, Object> response = new HashMap<>();
         User user = userService.findByUsername(principal.getName());
 

@@ -13,7 +13,10 @@ import challenge.backend.vendingmachine.repository.ProductRepository;
 public class ProductServiceImpl implements ProductService {
     @Autowired
     ProductRepository productRepository;
-
+    @Override
+    public List<Product> getAllProductsBySeller(String sellerId) {
+        return productRepository.findBySellerId(sellerId);
+    }
     @Override
     public List<Product> getAllProducts() {
         return productRepository.findAll();

@@ -27,9 +27,9 @@ public class SecurityConfig {
         http
                 .csrf().disable()
                 .authorizeHttpRequests()
-                .requestMatchers("/users/**").permitAll()
-                .requestMatchers("/products/**").hasRole("SELLER")
-                .requestMatchers("/deposit/**", "/buy/**", "/reset/**").hasRole("BUYER")
+                .requestMatchers("/users/sign-up").permitAll()
+                .requestMatchers("/products/**").hasAuthority("SELLER")
+                .requestMatchers("/deposit/**", "/buy/**", "/reset/**").hasAuthority("BUYER")
                 .anyRequest().authenticated()
                 .and()
                 .httpBasic();

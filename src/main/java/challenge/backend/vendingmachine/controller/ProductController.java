@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,17 +16,24 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import challenge.backend.vendingmachine.model.Product;
+import challenge.backend.vendingmachine.model.User;
 import challenge.backend.vendingmachine.service.ProductService;
+import challenge.backend.vendingmachine.service.UserService;
 
 @RestController
 @RequestMapping("/products")
 public class ProductController {
     @Autowired
     private ProductService productService;
+    @Autowired
+    private UserService userService;
 
     @GetMapping
-    public List<Product> getAllProducts() {
-        return productService.getAllProducts();
+    public List<Product> getAllProductsBySeller() {
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = userDetails.getUsername();
+        User user = userService.findByUsername(username);
+        return productService.getAllProductsBySeller(user.getId());
     }
 
     @GetMapping("/{id}")
